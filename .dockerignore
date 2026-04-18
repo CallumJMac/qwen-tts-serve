@@ -1,0 +1,9 @@
+.venv/
+.git/
+__pycache__/
+*.pyc
+infra/
+tests/
+scripts/
+*.wav
+.DS_Store
