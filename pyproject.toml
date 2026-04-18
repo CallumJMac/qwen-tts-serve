@@ -10,6 +10,7 @@ dependencies = [
     "websockets>=15.0",
     "numpy>=2.1",
     "torch>=2.6",
+    "torchaudio>=2.6",
     "qwen-tts>=0.1.1",
 ]
 
@@ -32,6 +33,7 @@ explicit = true
 
 [tool.uv.sources]
 torch = { index = "pytorch-cu124" }
+torchaudio = { index = "pytorch-cu124" }
 
 [build-system]
 requires = ["hatchling"]
