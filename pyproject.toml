@@ -1,0 +1,44 @@
+[project]
+name = "qwen-tts-serve"
+version = "0.1.0"
+description = "Stream Qwen3-TTS audio in real time over WebSocket."
+requires-python = ">=3.14"
+license = "Apache-2.0"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.34",
+    "websockets>=15.0",
+    "numpy>=2.1",
+    "torch>=2.6",
+    "qwen-tts>=0.1.1",
+]
+
+[project.optional-dependencies]
+cuda = [
+    "faster-qwen3-tts>=0.1",
+]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.25",
+    "httpx>=0.28",
+    "sounddevice>=0.5",
+    "ruff>=0.11",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/qwen_tts_serve"]
+
+[tool.ruff]
+target-version = "py314"
+line-length = 99
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
