@@ -167,7 +167,7 @@ resource "aws_lb" "this" {
 }
 
 resource "aws_lb_target_group" "this" {
-  name        = var.project_name
+  name        = "${var.project_name}-v2"
   port        = var.container_port
   protocol    = "HTTP"
   vpc_id      = data.aws_vpc.default.id
