@@ -41,11 +41,17 @@ class MockEngine:
             yield samples[i : i + chunk_samples], sr
 
 
+_DEFAULT_SPEAKER = "ryan"
+
+
 class QwenTTSEngine:
     """Official qwen-tts backend. Supports MPS and CUDA. No token-level streaming."""
 
     def __init__(
-        self, model_name: str = "Qwen/Qwen3-TTS-12Hz-0.6B-Base", device: str = "auto", **_kwargs
+        self,
+        model_name: str = "Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice",
+        device: str = "auto",
+        **_kwargs,
     ):
         import torch
         from qwen_tts import Qwen3TTSModel
@@ -66,7 +72,9 @@ class QwenTTSEngine:
         )
 
     def generate(self, text: str, language: str = "English") -> tuple[np.ndarray, int]:
-        wavs, sr = self._model.generate_voice_clone(text=text, language=language)
+        wavs, sr = self._model.generate_custom_voice(
+            text=text, speaker=_DEFAULT_SPEAKER, language=language,
+        )
         return np.concatenate(wavs).astype(np.float32), sr
 
     def generate_stream(
@@ -84,13 +92,15 @@ class QwenTTSEngine:
 class FasterQwenTTSEngine:
     """faster-qwen3-tts backend. CUDA only. True token-level streaming."""
 
-    def __init__(self, model_name: str = "Qwen/Qwen3-TTS-12Hz-0.6B-Base", **_kwargs):
+    def __init__(self, model_name: str = "Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice", **_kwargs):
         from faster_qwen3_tts import FasterQwen3TTS
 
         self._model = FasterQwen3TTS.from_pretrained(model_name)
 
     def generate(self, text: str, language: str = "English") -> tuple[np.ndarray, int]:
-        wavs, sr = self._model.generate_voice_clone(text=text, language=language)
+        wavs, sr = self._model.generate_custom_voice(
+            text=text, speaker=_DEFAULT_SPEAKER, language=language,
+        )
         return np.concatenate(wavs).astype(np.float32), sr
 
     def generate_stream(
@@ -99,8 +109,9 @@ class FasterQwenTTSEngine:
         language: str = "English",
         chunk_size: int = 12,
     ) -> Generator[tuple[np.ndarray, int]]:
-        for audio_chunk, sr, _timing in self._model.generate_voice_clone_streaming(
+        for audio_chunk, sr, _timing in self._model.generate_custom_voice_streaming(
             text=text,
+            speaker=_DEFAULT_SPEAKER,
             language=language,
             chunk_size=chunk_size,
         ):
@@ -116,7 +127,7 @@ _BACKENDS = {
 
 def create_engine(
     backend: str | None = None,
-    model_name: str = "Qwen/Qwen3-TTS-12Hz-0.6B-Base",
+    model_name: str = "Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice",
     **kwargs,
 ) -> TTSEngine:
     if backend is None:

@@ -21,7 +21,7 @@ _engine = None
 def _get_engine():
     global _engine
     if _engine is None:
-        model = os.environ.get("QWEN_TTS_MODEL", "Qwen/Qwen3-TTS-12Hz-0.6B-Base")
+        model = os.environ.get("QWEN_TTS_MODEL", "Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice")
         _engine = create_engine(model_name=model)
     return _engine
 
