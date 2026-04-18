@@ -7,6 +7,8 @@ from typing import Protocol
 import numpy as np
 
 SAMPLE_RATE = 24000
+# Qwen3-TTS-12Hz codec frame rate: 12.5 tokens/sec (24000 Hz / 1920 samples per frame)
+_TOKEN_RATE = 12.5
 
 
 class TTSEngine(Protocol):
@@ -34,7 +36,7 @@ class MockEngine:
         chunk_size: int = 12,
     ) -> Generator[tuple[np.ndarray, int]]:
         samples, sr = self.generate(text, language)
-        chunk_samples = int(sr * chunk_size / 12.5)
+        chunk_samples = max(1, int(sr * chunk_size / _TOKEN_RATE))
         for i in range(0, len(samples), chunk_samples):
             yield samples[i : i + chunk_samples], sr
 
@@ -42,7 +44,9 @@ class MockEngine:
 class QwenTTSEngine:
     """Official qwen-tts backend. Supports MPS and CUDA. No token-level streaming."""
 
-    def __init__(self, model_name: str = "Qwen/Qwen3-TTS-12Hz-0.6B-Base", device: str = "auto"):
+    def __init__(
+        self, model_name: str = "Qwen/Qwen3-TTS-12Hz-0.6B-Base", device: str = "auto", **_kwargs
+    ):
         import torch
         from qwen_tts import Qwen3TTSModel
 
@@ -72,7 +76,7 @@ class QwenTTSEngine:
         chunk_size: int = 12,
     ) -> Generator[tuple[np.ndarray, int]]:
         samples, sr = self.generate(text, language)
-        chunk_samples = int(sr * chunk_size / 12.5)
+        chunk_samples = max(1, int(sr * chunk_size / _TOKEN_RATE))
         for i in range(0, len(samples), chunk_samples):
             yield samples[i : i + chunk_samples], sr
 
@@ -117,6 +121,8 @@ def create_engine(
 ) -> TTSEngine:
     if backend is None:
         backend = os.environ.get("QWEN_TTS_ENGINE", "qwen")
+    if backend not in _BACKENDS:
+        raise ValueError(f"Unknown backend {backend!r}. Valid choices: {list(_BACKENDS)}")
     cls = _BACKENDS[backend]
     if cls is MockEngine:
         return cls()
