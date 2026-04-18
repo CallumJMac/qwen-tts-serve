@@ -90,6 +90,19 @@ resource "aws_iam_role_policy_attachment" "ecs_ec2_ssm" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
 
+resource "aws_iam_role_policy" "ecs_ec2_ecr_push" {
+  name = "${var.project_name}-ecr-push"
+  role = aws_iam_role.ecs_ec2.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect   = "Allow"
+      Action   = ["ecr:PutImage", "ecr:InitiateLayerUpload", "ecr:UploadLayerPart", "ecr:CompleteLayerUpload", "ecr:BatchCheckLayerAvailability"]
+      Resource = aws_ecr_repository.this.arn
+    }]
+  })
+}
+
 resource "aws_iam_instance_profile" "ecs_ec2" {
   name = "${var.project_name}-ecs-ec2"
   role = aws_iam_role.ecs_ec2.name
@@ -150,6 +163,7 @@ resource "aws_lb" "this" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
   subnets            = data.aws_subnets.default.ids
+  idle_timeout       = 300
 }
 
 resource "aws_lb_target_group" "this" {
@@ -157,7 +171,7 @@ resource "aws_lb_target_group" "this" {
   port        = var.container_port
   protocol    = "HTTP"
   vpc_id      = data.aws_vpc.default.id
-  target_type = "ip"
+  target_type = "instance"
 
   health_check {
     path                = "/health"
@@ -210,6 +224,14 @@ resource "aws_launch_template" "ecs" {
   EOF
   )
 
+  block_device_mappings {
+    device_name = "/dev/xvda"
+    ebs {
+      volume_size = 100
+      volume_type = "gp3"
+    }
+  }
+
   tag_specifications {
     resource_type = "instance"
     tags          = { Name = var.project_name }
@@ -261,7 +283,7 @@ resource "aws_ecs_cluster_capacity_providers" "this" {
 
 resource "aws_ecs_task_definition" "this" {
   family                   = var.project_name
-  network_mode             = "awsvpc"
+  network_mode             = "bridge"
   requires_compatibilities = ["EC2"]
   execution_role_arn       = aws_iam_role.ecs_execution.arn
   task_role_arn            = aws_iam_role.ecs_task.arn
@@ -275,6 +297,7 @@ resource "aws_ecs_task_definition" "this" {
 
     portMappings = [{
       containerPort = var.container_port
+      hostPort      = var.container_port
       protocol      = "tcp"
     }]
 
@@ -308,12 +331,6 @@ resource "aws_ecs_service" "this" {
   capacity_provider_strategy {
     capacity_provider = aws_ecs_capacity_provider.this.name
     weight            = 1
-  }
-
-  network_configuration {
-    subnets          = data.aws_subnets.default.ids
-    security_groups  = [aws_security_group.ecs.id]
-    assign_public_ip = true
   }
 
   load_balancer {
