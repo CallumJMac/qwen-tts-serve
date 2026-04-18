@@ -17,7 +17,7 @@ RUN uv sync --extra cuda --no-dev --python 3.13
 
 # Pre-download model weights at build time so the container needs no internet
 ENV QWEN_TTS_MODEL=Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice
-RUN uv run --no-sync python -c "from qwen_tts import Qwen3TTSModel; Qwen3TTSModel.from_pretrained('Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice', device_map='cpu')"
+RUN uv run --no-sync python -c "from huggingface_hub import snapshot_download; snapshot_download('Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice')"
 
 EXPOSE 8000
 
