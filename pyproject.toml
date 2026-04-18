@@ -2,7 +2,7 @@
 name = "qwen-tts-serve"
 version = "0.1.0"
 description = "Stream Qwen3-TTS audio in real time over WebSocket."
-requires-python = ">=3.14"
+requires-python = ">=3.12"
 license = "Apache-2.0"
 dependencies = [
     "fastapi>=0.115",
@@ -25,6 +25,14 @@ dev = [
     "ruff>=0.11",
 ]
 
+[[tool.uv.index]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu124" }
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
@@ -33,7 +41,7 @@ build-backend = "hatchling.build"
 packages = ["src/qwen_tts_serve"]
 
 [tool.ruff]
-target-version = "py314"
+target-version = "py312"
 line-length = 99
 
 [tool.ruff.lint]

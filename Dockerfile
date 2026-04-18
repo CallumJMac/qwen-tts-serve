@@ -13,7 +13,7 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 WORKDIR /app
 COPY pyproject.toml uv.lock ./
 COPY src/ src/
-RUN uv sync --frozen --extra cuda --no-dev --python 3.14
+RUN uv sync --extra cuda --no-dev --python 3.13
 
 # Pre-download model weights at build time so the container needs no internet
 ENV QWEN_TTS_MODEL=Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice
