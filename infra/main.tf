@@ -279,7 +279,7 @@ resource "aws_ecs_task_definition" "this" {
     }]
 
     environment = [
-      { name = "QWEN_TTS_ENGINE", value = "faster" },
+      { name = "QWEN_TTS_ENGINE", value = "qwen" },
       { name = "QWEN_TTS_MODEL", value = var.model_name },
     ]
 
@@ -311,8 +311,9 @@ resource "aws_ecs_service" "this" {
   }
 
   network_configuration {
-    subnets         = data.aws_subnets.default.ids
-    security_groups = [aws_security_group.ecs.id]
+    subnets          = data.aws_subnets.default.ids
+    security_groups  = [aws_security_group.ecs.id]
+    assign_public_ip = true
   }
 
   load_balancer {

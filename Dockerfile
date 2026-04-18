@@ -12,14 +12,12 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
 WORKDIR /app
 COPY pyproject.toml uv.lock ./
-# uv installs Python 3.14 automatically from python-build-standalone
-RUN uv sync --frozen --extra cuda --no-dev --python 3.14
-
 COPY src/ src/
+RUN uv sync --frozen --extra cuda --no-dev --python 3.14
 
 EXPOSE 8000
 
-ENV QWEN_TTS_ENGINE=faster
+ENV QWEN_TTS_ENGINE=qwen
 ENV QWEN_TTS_MODEL=Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice
 
-CMD ["uv", "run", "uvicorn", "qwen_tts_serve.server:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uv", "run", "--no-sync", "uvicorn", "qwen_tts_serve.server:app", "--host", "0.0.0.0", "--port", "8000"]
