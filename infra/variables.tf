@@ -31,5 +31,5 @@ variable "desired_count" {
 variable "model_name" {
   description = "HuggingFace model ID"
   type        = string
-  default     = "Qwen/Qwen3-TTS-12Hz-1.7B-Base"
+  default     = "Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice"
 }

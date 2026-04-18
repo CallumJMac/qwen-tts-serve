@@ -35,15 +35,15 @@ resource "aws_ecr_repository" "this" {
   }
 }
 
-# --- IAM ---
+# --- IAM (ECS task execution) ---
 
 resource "aws_iam_role" "ecs_execution" {
   name = "${var.project_name}-ecs-execution"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
+      Action    = "sts:AssumeRole"
+      Effect    = "Allow"
       Principal = { Service = "ecs-tasks.amazonaws.com" }
     }]
   })
@@ -59,11 +59,40 @@ resource "aws_iam_role" "ecs_task" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
+      Action    = "sts:AssumeRole"
+      Effect    = "Allow"
       Principal = { Service = "ecs-tasks.amazonaws.com" }
     }]
   })
+}
+
+# --- IAM (EC2 instances in the cluster) ---
+
+resource "aws_iam_role" "ecs_ec2" {
+  name = "${var.project_name}-ecs-ec2"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Action    = "sts:AssumeRole"
+      Effect    = "Allow"
+      Principal = { Service = "ec2.amazonaws.com" }
+    }]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_ec2" {
+  role       = aws_iam_role.ecs_ec2.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_ec2_ssm" {
+  role       = aws_iam_role.ecs_ec2.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
+
+resource "aws_iam_instance_profile" "ecs_ec2" {
+  name = "${var.project_name}-ecs-ec2"
+  role = aws_iam_role.ecs_ec2.name
 }
 
 # --- CloudWatch ---
@@ -155,10 +184,79 @@ resource "aws_lb_listener" "this" {
   }
 }
 
+# --- EC2 Auto Scaling Group (backs the ECS cluster) ---
+
+data "aws_ssm_parameter" "ecs_gpu_ami" {
+  name = "/aws/service/ecs/optimized-ami/amazon-linux-2/gpu/recommended/image_id"
+}
+
+resource "aws_launch_template" "ecs" {
+  name_prefix   = "${var.project_name}-"
+  image_id      = data.aws_ssm_parameter.ecs_gpu_ami.value
+  instance_type = var.instance_type
+
+  iam_instance_profile {
+    arn = aws_iam_instance_profile.ecs_ec2.arn
+  }
+
+  network_interfaces {
+    associate_public_ip_address = true
+    security_groups             = [aws_security_group.ecs.id]
+  }
+
+  user_data = base64encode(<<-EOF
+    #!/bin/bash
+    echo ECS_CLUSTER=${var.project_name} >> /etc/ecs/ecs.config
+  EOF
+  )
+
+  tag_specifications {
+    resource_type = "instance"
+    tags          = { Name = var.project_name }
+  }
+}
+
+resource "aws_autoscaling_group" "ecs" {
+  name                = var.project_name
+  desired_capacity    = var.desired_count
+  min_size            = 0
+  max_size            = 1
+  vpc_zone_identifier = data.aws_subnets.default.ids
+
+  launch_template {
+    id      = aws_launch_template.ecs.id
+    version = "$Latest"
+  }
+
+  tag {
+    key                 = "AmazonECSManaged"
+    value               = true
+    propagate_at_launch = true
+  }
+}
+
+resource "aws_ecs_capacity_provider" "this" {
+  name = var.project_name
+
+  auto_scaling_group_provider {
+    auto_scaling_group_arn = aws_autoscaling_group.ecs.arn
+  }
+}
+
 # --- ECS ---
 
 resource "aws_ecs_cluster" "this" {
   name = var.project_name
+}
+
+resource "aws_ecs_cluster_capacity_providers" "this" {
+  cluster_name       = aws_ecs_cluster.this.name
+  capacity_providers = [aws_ecs_capacity_provider.this.name]
+
+  default_capacity_provider_strategy {
+    capacity_provider = aws_ecs_capacity_provider.this.name
+    weight            = 1
+  }
 }
 
 resource "aws_ecs_task_definition" "this" {
@@ -168,7 +266,7 @@ resource "aws_ecs_task_definition" "this" {
   execution_role_arn       = aws_iam_role.ecs_execution.arn
   task_role_arn            = aws_iam_role.ecs_task.arn
   cpu                      = "4096"
-  memory                   = "16384"
+  memory                   = "14336"
 
   container_definitions = jsonencode([{
     name      = var.project_name
@@ -206,7 +304,11 @@ resource "aws_ecs_service" "this" {
   cluster         = aws_ecs_cluster.this.id
   task_definition = aws_ecs_task_definition.this.arn
   desired_count   = var.desired_count
-  launch_type     = "EC2"
+
+  capacity_provider_strategy {
+    capacity_provider = aws_ecs_capacity_provider.this.name
+    weight            = 1
+  }
 
   network_configuration {
     subnets         = data.aws_subnets.default.ids
@@ -219,5 +321,5 @@ resource "aws_ecs_service" "this" {
     container_port   = var.container_port
   }
 
-  depends_on = [aws_lb_listener.this]
+  depends_on = [aws_lb_listener.this, aws_ecs_cluster_capacity_providers.this]
 }
