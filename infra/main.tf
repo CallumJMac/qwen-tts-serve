@@ -201,7 +201,7 @@ resource "aws_lb_listener" "this" {
 # --- EC2 Auto Scaling Group (backs the ECS cluster) ---
 
 data "aws_ssm_parameter" "ecs_gpu_ami" {
-  name = "/aws/service/ecs/optimized-ami/amazon-linux-2023/nvidia/recommended/image_id"
+  name = "/aws/service/ecs/optimized-ami/amazon-linux-2/gpu/recommended/image_id"
 }
 
 resource "aws_launch_template" "ecs" {
