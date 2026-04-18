@@ -42,3 +42,8 @@ select = ["E", "F", "I", "UP"]
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
+filterwarnings = [
+    "ignore::DeprecationWarning:websockets",
+    "ignore::DeprecationWarning:uvicorn",
+    "ignore:.*asyncio.iscoroutinefunction.*:DeprecationWarning",
+]
