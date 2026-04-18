@@ -1,27 +1,33 @@
 #!/usr/bin/env python3
 """End-to-end demo: start server, stream TTS, play audio through speakers."""
+
 from __future__ import annotations
 
 import subprocess
 import sys
 import time
 
-import numpy as np
 import sounddevice as sd
 
 from qwen_tts_serve.client import QwenTTSClient
 
 SAMPLE_RATE = 24000
 SERVER_CMD = [
-    sys.executable, "-m", "uvicorn",
+    sys.executable,
+    "-m",
+    "uvicorn",
     "qwen_tts_serve.server:app",
-    "--host", "127.0.0.1", "--port", "8000",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "8000",
 ]
 TEXT = "This is a test of the Qwen three text to speech streaming server."
 
 
 def wait_for_server(url: str, timeout: float = 120):
     import urllib.request
+
     health = url.replace("ws://", "http://").replace("/ws/tts", "/health")
     start = time.monotonic()
     while time.monotonic() - start < timeout:
