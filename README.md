@@ -19,16 +19,15 @@
 ## Architecture
 
 ```
-Client (voice-loop, CLI)          Server (FastAPI)
-┌────────────────────┐            ┌──────────────────────┐
-│                    │  WebSocket  │                      │
-│  QwenTTSClient     │◄──────────►│  /ws/tts             │
-│                    │ binary PCM  │                      │
-│  .create()         │  chunks     │  Engine abstraction  │
-│  .create_stream()  │            │  ├─ qwen-tts (MPS)   │
-│                    │            │  └─ faster-qwen3-tts  │
-└────────────────────┘            │      (CUDA)           │
-                                  └──────────────────────┘
+Client (voice-loop, CLI)               Server (FastAPI)
+┌──────────────────────┐               ┌──────────────────────────┐
+│  QwenTTSClient       │   WebSocket   │  /ws/tts                 │
+│                      │◄─────────────►│                          │
+│  .create()           │  float32 PCM  │  Engine abstraction      │
+│  .create_stream()    │    chunks     │  ├─ qwen-tts  (MPS/CPU)  │
+│                      │               │  └─ faster-qwen3-tts     │
+└──────────────────────┘               │        (CUDA)            │
+                                       └──────────────────────────┘
 ```
 
 ## Quick Start
