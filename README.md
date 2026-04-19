@@ -5,7 +5,6 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/CallumJMac/qwen-tts-serve/actions"><img src="https://img.shields.io/github/actions/workflow/status/CallumJMac/qwen-tts-serve/ci.yml?branch=main&style=for-the-badge" alt="CI"></a>
   <a href="https://github.com/CallumJMac/qwen-tts-serve/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=for-the-badge" alt="License"></a>
   <a href="https://python.org"><img src="https://img.shields.io/badge/Python-3.12+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"></a>
 </p>
