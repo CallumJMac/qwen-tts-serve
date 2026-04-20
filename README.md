@@ -36,7 +36,7 @@ Client (voice-loop, CLI)               Server (FastAPI)
 # Install
 git clone https://github.com/CallumJMac/qwen-tts-serve.git
 cd qwen-tts-serve
-uv sync --extra dev
+uv sync --extra server --extra dev
 
 # Start server (Mac - downloads 0.6B model on first run)
 uv run uvicorn qwen_tts_serve.server:app --host 0.0.0.0 --port 8000
@@ -53,7 +53,7 @@ python scripts/stream_demo.py "Hello world"
 
 ```bash
 # Install with CUDA acceleration
-uv sync --extra cuda --extra dev
+uv sync --extra cuda --extra server --extra dev
 
 # Start server with faster-qwen3-tts backend
 QWEN_TTS_ENGINE=faster uv run uvicorn qwen_tts_serve.server:app --host 0.0.0.0 --port 8000

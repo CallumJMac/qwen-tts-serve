@@ -5,17 +5,20 @@ description = "Stream Qwen3-TTS audio in real time over WebSocket."
 requires-python = ">=3.12"
 license = "Apache-2.0"
 dependencies = [
-    "fastapi>=0.115",
-    "uvicorn[standard]>=0.34",
     "websockets>=15.0",
     "numpy>=2.1",
+]
+
+[project.optional-dependencies]
+server = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.34",
     "torch>=2.6",
     "torchaudio>=2.6",
     "qwen-tts>=0.1.1",
 ]
-
-[project.optional-dependencies]
 cuda = [
+    "qwen-tts-serve[server]",
     "faster-qwen3-tts>=0.1",
 ]
 dev = [
