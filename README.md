@@ -43,6 +43,10 @@ uv run uvicorn qwen_tts_serve.server:app --host 0.0.0.0 --port 8000
 
 # Run demo (in another terminal)
 uv run scripts/demo.py
+
+# Stream from a remote server and play in real time
+export QWEN_TTS_URL=ws://YOUR_ALB/ws/tts
+python scripts/stream_demo.py "Hello world"
 ```
 
 ## GPU Deployment
@@ -99,18 +103,18 @@ for chunk, sr in client.create_stream("Hello world"):
 | 1 — Local | Server + client + demo with 0.6B on Mac | ✅ Done |
 | 2 — Deploy | Dockerfile + Terraform + GPU on g5.xlarge (A10G) | ✅ Done |
 | 3 — Integrate | Voice-loop `--tts-backend qwen` drop-in adapter | ✅ Done |
-| 4 — Real-time | True token-level streaming via `faster-qwen3-tts` | Planned |
+| 4 — Real-time | True token-level streaming via `faster-qwen3-tts` | ✅ Done |
 
-## Roadmap: Real-Time Streaming (Phase 4)
+## Performance
 
-Current performance: ~10s to generate 5.6s of audio (1.8× slower than real-time). Audio is generated in full before the first byte is sent.
+Deployed on g5.xlarge (A10G, 24 GB VRAM) with `faster-qwen3-tts` (CUDA graph acceleration):
 
-To achieve true real-time (<1× RTF, first audio in ~1-2s):
-
-- [ ] **Fix `faster-qwen3-tts` CUDA compatibility** — the `faster` backend supports token-level streaming via `generate_custom_voice_streaming()` but currently fails to load on the ECS AMI (NVIDIA driver 550, CUDA 12.4). Needs a cu124-compatible build of the `faster-qwen3-tts` native extensions.
-- [ ] **Stream audio to client as tokens are decoded** — update `FasterQwenTTSEngine.generate_stream()` to yield chunks immediately rather than buffering. The WebSocket server already supports this pattern.
-- [ ] **Client-side streaming playback** — update `QwenTTSClient.create_stream()` and the voice-loop adapter to start playing the first chunk while subsequent chunks are still being generated.
-- [ ] **Warm model on startup** — load and warm the model at server startup (not on first request) to eliminate the ~15s cold-start latency on the first inference.
+| Metric | Before (Phase 3) | After (Phase 4) |
+|--------|------------------|-----------------|
+| First audio (TTFA) | ~10 s | **~500 ms** |
+| Real-time factor | 1.8× (slower than real-time) | **0.5×** (2× faster than real-time) |
+| Streaming | Batch then slice | True token-level |
+| Cold start | ~15 s on first request | None (warm-up at startup) |
 
 ## License
 

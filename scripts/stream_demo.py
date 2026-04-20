@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+import os
 import time
 
 import numpy as np
@@ -14,7 +15,7 @@ import websockets
 
 
 SAMPLE_RATE = 24000
-DEFAULT_URL = "ws://qwen-tts-serve-10958726.us-east-1.elb.amazonaws.com/ws/tts"
+DEFAULT_URL = os.environ.get("QWEN_TTS_URL", "ws://localhost:8000/ws/tts")
 DEFAULT_TEXT = (
     "This is an example of the Qwen TTS server streaming audio in real time."
 )
