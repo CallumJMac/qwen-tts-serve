@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 app = FastAPI(title="qwen-tts-serve")
 
 _engine = None
+_ready = False
 
 
 # NOTE: not thread-safe — intended for single-worker deployment only (v1).
@@ -26,8 +27,22 @@ def _get_engine():
     return _engine
 
 
+@app.on_event("startup")
+async def _warm_up():
+    global _ready
+    loop = asyncio.get_event_loop()
+    logger.info("Warming up TTS engine…")
+    engine = await loop.run_in_executor(None, _get_engine)
+    await loop.run_in_executor(None, engine.generate, "warmup")
+    _ready = True
+    logger.info("TTS engine ready")
+
+
 @app.get("/health")
 def health():
+    if not _ready:
+        from fastapi.responses import JSONResponse
+        return JSONResponse({"status": "warming"}, status_code=503)
     return {"status": "ok"}
 
 

@@ -302,7 +302,7 @@ resource "aws_ecs_task_definition" "this" {
     }]
 
     environment = [
-      { name = "QWEN_TTS_ENGINE", value = "qwen" },
+      { name = "QWEN_TTS_ENGINE", value = "faster" },
       { name = "QWEN_TTS_MODEL", value = var.model_name },
     ]
 

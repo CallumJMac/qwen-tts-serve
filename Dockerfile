@@ -21,6 +21,6 @@ RUN uv run --no-sync python -c "from huggingface_hub import snapshot_download; s
 
 EXPOSE 8000
 
-ENV QWEN_TTS_ENGINE=qwen
+ENV QWEN_TTS_ENGINE=faster
 
 CMD ["uv", "run", "--no-sync", "uvicorn", "qwen_tts_serve.server:app", "--host", "0.0.0.0", "--port", "8000"]
