@@ -12,6 +12,7 @@ dependencies = [
 [project.optional-dependencies]
 server = [
     "fastapi>=0.115",
+    "python-multipart>=0.0.9",
     "uvicorn[standard]>=0.34",
     "torch>=2.6",
     "torchaudio>=2.6",

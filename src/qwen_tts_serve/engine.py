@@ -34,6 +34,7 @@ class MockEngine:
         text: str,
         language: str = "English",
         chunk_size: int = 12,
+        voice_id: str | None = None,
     ) -> Generator[tuple[np.ndarray, int]]:
         samples, sr = self.generate(text, language)
         chunk_samples = max(1, int(sr * chunk_size / _TOKEN_RATE))
@@ -82,6 +83,7 @@ class QwenTTSEngine:
         text: str,
         language: str = "English",
         chunk_size: int = 12,
+        voice_id: str | None = None,
     ) -> Generator[tuple[np.ndarray, int]]:
         samples, sr = self.generate(text, language)
         chunk_samples = max(1, int(sr * chunk_size / _TOKEN_RATE))
@@ -96,11 +98,20 @@ class FasterQwenTTSEngine:
         from faster_qwen3_tts import FasterQwen3TTS
 
         self._model = FasterQwen3TTS.from_pretrained(model_name)
+        self._voice_prompts: dict[str, dict] = {}
+        self._is_base_model = "Base" in model_name
 
-    def generate(self, text: str, language: str = "English") -> tuple[np.ndarray, int]:
-        wavs, sr = self._model.generate_custom_voice(
-            text=text, speaker=_DEFAULT_SPEAKER, language=language,
-        )
+    def generate(self, text: str, language: str = "English", ref_audio: str | None = None) -> tuple[np.ndarray, int]:
+        if self._is_base_model:
+            if ref_audio is None:
+                return np.zeros(SAMPLE_RATE, dtype=np.float32), SAMPLE_RATE
+            wavs, sr = self._model.generate_voice_clone(
+                text=text, language=language, ref_audio=ref_audio,
+            )
+        else:
+            wavs, sr = self._model.generate_custom_voice(
+                text=text, speaker=_DEFAULT_SPEAKER, language=language,
+            )
         return np.concatenate(wavs).astype(np.float32), sr
 
     def generate_stream(
@@ -108,14 +119,36 @@ class FasterQwenTTSEngine:
         text: str,
         language: str = "English",
         chunk_size: int = 12,
+        voice_id: str | None = None,
     ) -> Generator[tuple[np.ndarray, int]]:
-        for audio_chunk, sr, _timing in self._model.generate_custom_voice_streaming(
-            text=text,
-            speaker=_DEFAULT_SPEAKER,
-            language=language,
-            chunk_size=chunk_size,
-        ):
-            yield audio_chunk.astype(np.float32), sr
+        if voice_id and voice_id in self._voice_prompts:
+            vp = self._voice_prompts[voice_id]
+            for audio_chunk, sr, _timing in self._model.generate_voice_clone_streaming(
+                text=text,
+                language=language,
+                chunk_size=chunk_size,
+                ref_audio=vp["ref_audio"],
+                ref_text=vp["ref_text"],
+            ):
+                yield audio_chunk.astype(np.float32), sr
+        elif self._is_base_model:
+            for audio_chunk, sr, _timing in self._model.generate_voice_clone_streaming(
+                text=text,
+                language=language,
+                chunk_size=chunk_size,
+            ):
+                yield audio_chunk.astype(np.float32), sr
+        else:
+            for audio_chunk, sr, _timing in self._model.generate_custom_voice_streaming(
+                text=text,
+                speaker=_DEFAULT_SPEAKER,
+                language=language,
+                chunk_size=chunk_size,
+            ):
+                yield audio_chunk.astype(np.float32), sr
+
+    def register_voice(self, voice_id: str, audio_path: str, ref_text: str) -> None:
+        self._voice_prompts[voice_id] = {"ref_audio": audio_path, "ref_text": ref_text}
 
 
 _BACKENDS = {

@@ -4,9 +4,10 @@ import asyncio
 import json
 import logging
 import os
+import tempfile
 
 import numpy as np
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, File, Form, UploadFile, WebSocket, WebSocketDisconnect
 
 from qwen_tts_serve.engine import create_engine
 
@@ -31,7 +32,7 @@ def _get_engine():
 async def _warm_up():
     global _ready
     loop = asyncio.get_event_loop()
-    logger.info("Warming up TTS engine…")
+    logger.info("Warming up TTS engine...")
     engine = await loop.run_in_executor(None, _get_engine)
     await loop.run_in_executor(None, engine.generate, "warmup")
     _ready = True
@@ -44,6 +45,31 @@ def health():
         from fastapi.responses import JSONResponse
         return JSONResponse({"status": "warming"}, status_code=503)
     return {"status": "ok"}
+
+
+@app.post("/voices")
+async def register_voice(
+    voice_id: str = Form(...),
+    ref_text: str = Form(...),
+    ref_audio: UploadFile = File(...),
+):
+    engine = _get_engine()
+    if not hasattr(engine, "register_voice"):
+        from fastapi.responses import JSONResponse
+        return JSONResponse(
+            {"error": "voice cloning not supported by current engine/model"},
+            status_code=400,
+        )
+
+    voice_dir = os.path.join(tempfile.gettempdir(), "qwen_voices")
+    os.makedirs(voice_dir, exist_ok=True)
+    audio_path = os.path.join(voice_dir, f"{voice_id}.wav")
+    with open(audio_path, "wb") as f:
+        f.write(await ref_audio.read())
+
+    loop = asyncio.get_event_loop()
+    await loop.run_in_executor(None, engine.register_voice, voice_id, audio_path, ref_text)
+    return {"voice_id": voice_id, "status": "registered"}
 
 
 @app.websocket("/ws/tts")
@@ -60,6 +86,7 @@ async def ws_tts(ws: WebSocket):
 
         language = req.get("language", "English")
         chunk_size = req.get("chunk_size", 12)
+        voice_id = req.get("voice_id")
         engine = _get_engine()
         total_samples = 0
         sample_rate = 24000
@@ -75,7 +102,9 @@ async def ws_tts(ws: WebSocket):
                 return _DONE
 
         loop = asyncio.get_event_loop()
-        gen = engine.generate_stream(text, language=language, chunk_size=chunk_size)
+        gen = engine.generate_stream(
+            text, language=language, chunk_size=chunk_size, voice_id=voice_id,
+        )
         while True:
             result = await loop.run_in_executor(None, _next, gen)
             if result is _DONE:

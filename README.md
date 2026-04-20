@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://github.com/CallumJMac/qwen-tts-serve/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=for-the-badge" alt="License"></a>
-  <a href="https://python.org"><img src="https://img.shields.io/badge/Python-3.12+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"></a>
+  <a href="https://python.org"><img src="https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"></a>
 </p>
 
 <p align="center">
@@ -80,6 +80,31 @@ Server → Client:  {"done": true, "total_samples": 48000}
 ```
 
 Cancel by closing the connection. Server aborts inference immediately.
+
+## Voice Cloning
+
+The server supports voice cloning when using the Base model (`Qwen3-TTS-12Hz-0.6B-Base`). Register a reference voice, then use it for all subsequent requests.
+
+```bash
+# Register a voice (provide 5-30s reference audio + transcript)
+curl -X POST http://YOUR_SERVER/voices \
+  -F "voice_id=my_voice" \
+  -F "ref_text=Transcript of the reference audio." \
+  -F "ref_audio=@reference.wav"
+
+# Stream with the cloned voice (pass voice_id in the WebSocket request)
+{"text": "Hello world", "voice_id": "my_voice"}
+```
+
+Interactive demo with real-time playback:
+
+```bash
+python scripts/voice_clone_demo.py \
+  --ref-audio reference.wav \
+  --ref-text "Transcript of the reference audio." \
+  --voice-id my_voice \
+  "Text to speak in the cloned voice"
+```
 
 ## Client Library
 

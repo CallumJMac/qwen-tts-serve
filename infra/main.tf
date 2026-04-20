@@ -303,7 +303,7 @@ resource "aws_ecs_task_definition" "this" {
 
     environment = [
       { name = "QWEN_TTS_ENGINE", value = "faster" },
-      { name = "QWEN_TTS_MODEL", value = var.model_name },
+      { name = "QWEN_TTS_MODEL", value = "Qwen/Qwen3-TTS-12Hz-0.6B-Base" },
     ]
 
     logConfiguration = {
