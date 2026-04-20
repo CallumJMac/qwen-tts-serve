@@ -38,7 +38,7 @@ git clone https://github.com/CallumJMac/qwen-tts-serve.git
 cd qwen-tts-serve
 uv sync --extra dev
 
-# Start server (Mac — downloads 0.6B model on first run)
+# Start server (Mac - downloads 0.6B model on first run)
 uv run uvicorn qwen_tts_serve.server:app --host 0.0.0.0 --port 8000
 
 # Run demo (in another terminal)
@@ -100,10 +100,10 @@ for chunk, sr in client.create_stream("Hello world"):
 
 | Phase | Scope | Status |
 |-------|-------|--------|
-| 1 — Local | Server + client + demo with 0.6B on Mac | ✅ Done |
-| 2 — Deploy | Dockerfile + Terraform + GPU on g5.xlarge (A10G) | ✅ Done |
-| 3 — Integrate | Voice-loop `--tts-backend qwen` drop-in adapter | ✅ Done |
-| 4 — Real-time | True token-level streaming via `faster-qwen3-tts` | ✅ Done |
+| 1 - Local | Server + client + demo with 0.6B on Mac | ✅ Done |
+| 2 - Deploy | Dockerfile + Terraform + GPU on g5.xlarge (A10G) | ✅ Done |
+| 3 - Integrate | Voice-loop `--tts-backend qwen` drop-in adapter | ✅ Done |
+| 4 - Real-time | True token-level streaming via `faster-qwen3-tts` | ✅ Done |
 
 ## Performance
 
