@@ -13,6 +13,8 @@ from qwen_tts_serve.engine import create_engine
 
 logger = logging.getLogger(__name__)
 
+URL_PREFIX = os.environ.get("URL_PREFIX", "")
+
 app = FastAPI(title="qwen-tts-serve")
 
 _engine = None
@@ -39,7 +41,7 @@ async def _warm_up():
     logger.info("TTS engine ready")
 
 
-@app.get("/health")
+@app.get(f"{URL_PREFIX}/health")
 def health():
     if not _ready:
         from fastapi.responses import JSONResponse
@@ -47,7 +49,7 @@ def health():
     return {"status": "ok"}
 
 
-@app.post("/voices")
+@app.post(f"{URL_PREFIX}/voices")
 async def register_voice(
     voice_id: str = Form(...),
     ref_text: str = Form(...),
@@ -72,7 +74,7 @@ async def register_voice(
     return {"voice_id": voice_id, "status": "registered"}
 
 
-@app.websocket("/ws/tts")
+@app.websocket(f"{URL_PREFIX}/ws/tts")
 async def ws_tts(ws: WebSocket):
     await ws.accept()
     try:
