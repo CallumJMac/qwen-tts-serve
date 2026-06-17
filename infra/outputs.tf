@@ -4,8 +4,18 @@ output "ecr_repository_url" {
 }
 
 output "alb_dns_name" {
-  description = "ALB DNS name — connect WebSocket to ws://<this>/ws/tts"
+  description = "ALB DNS name"
   value       = aws_lb.this.dns_name
+}
+
+output "custom_endpoint" {
+  description = "CustomVoice WebSocket endpoint"
+  value       = "ws://${aws_lb.this.dns_name}/custom/ws/tts"
+}
+
+output "clone_endpoint" {
+  description = "Base (clone) WebSocket endpoint"
+  value       = "ws://${aws_lb.this.dns_name}/clone/ws/tts"
 }
 
 output "ecs_cluster_name" {

@@ -23,13 +23,7 @@ variable "container_port" {
 }
 
 variable "desired_count" {
-  description = "Number of ECS tasks"
+  description = "Number of instances per service"
   type        = number
   default     = 1
-}
-
-variable "model_name" {
-  description = "HuggingFace model ID"
-  type        = string
-  default     = "Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice"
 }

@@ -141,8 +141,8 @@ resource "aws_security_group" "ecs" {
   vpc_id      = data.aws_vpc.default.id
 
   ingress {
-    from_port       = var.container_port
-    to_port         = var.container_port
+    from_port       = 0
+    to_port         = 65535
     protocol        = "tcp"
     security_groups = [aws_security_group.alb.id]
   }
@@ -166,15 +166,36 @@ resource "aws_lb" "this" {
   idle_timeout       = 300
 }
 
-resource "aws_lb_target_group" "this" {
-  name        = "${var.project_name}-v2"
+resource "aws_lb_target_group" "custom" {
+  name        = "${var.project_name}-custom"
   port        = var.container_port
   protocol    = "HTTP"
   vpc_id      = data.aws_vpc.default.id
   target_type = "instance"
 
   health_check {
-    path                = "/health"
+    path                = "/custom/health"
+    interval            = 30
+    timeout             = 10
+    healthy_threshold   = 2
+    unhealthy_threshold = 5
+  }
+
+  stickiness {
+    type    = "lb_cookie"
+    enabled = true
+  }
+}
+
+resource "aws_lb_target_group" "clone" {
+  name        = "${var.project_name}-clone"
+  port        = var.container_port
+  protocol    = "HTTP"
+  vpc_id      = data.aws_vpc.default.id
+  target_type = "instance"
+
+  health_check {
+    path                = "/clone/health"
     interval            = 30
     timeout             = 10
     healthy_threshold   = 2
@@ -194,7 +215,39 @@ resource "aws_lb_listener" "this" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.this.arn
+    target_group_arn = aws_lb_target_group.clone.arn
+  }
+}
+
+resource "aws_lb_listener_rule" "custom" {
+  listener_arn = aws_lb_listener.this.arn
+  priority     = 10
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.custom.arn
+  }
+
+  condition {
+    path_pattern {
+      values = ["/custom/*"]
+    }
+  }
+}
+
+resource "aws_lb_listener_rule" "clone" {
+  listener_arn = aws_lb_listener.this.arn
+  priority     = 20
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.clone.arn
+  }
+
+  condition {
+    path_pattern {
+      values = ["/clone/*"]
+    }
   }
 }
 
@@ -240,9 +293,9 @@ resource "aws_launch_template" "ecs" {
 
 resource "aws_autoscaling_group" "ecs" {
   name                = var.project_name
-  desired_capacity    = var.desired_count
+  desired_capacity    = var.desired_count * 2
   min_size            = 0
-  max_size            = 1
+  max_size            = var.desired_count * 2
   vpc_zone_identifier = data.aws_subnets.default.ids
 
   launch_template {
@@ -281,8 +334,8 @@ resource "aws_ecs_cluster_capacity_providers" "this" {
   }
 }
 
-resource "aws_ecs_task_definition" "this" {
-  family                   = var.project_name
+resource "aws_ecs_task_definition" "custom" {
+  family                   = "${var.project_name}-custom"
   network_mode             = "bridge"
   requires_compatibilities = ["EC2"]
   execution_role_arn       = aws_iam_role.ecs_execution.arn
@@ -291,19 +344,20 @@ resource "aws_ecs_task_definition" "this" {
   memory                   = "14336"
 
   container_definitions = jsonencode([{
-    name      = var.project_name
-    image     = "${aws_ecr_repository.this.repository_url}:latest"
+    name      = "${var.project_name}-custom"
+    image     = "${aws_ecr_repository.this.repository_url}:custom"
     essential = true
 
     portMappings = [{
       containerPort = var.container_port
-      hostPort      = var.container_port
+      hostPort      = 0
       protocol      = "tcp"
     }]
 
     environment = [
       { name = "QWEN_TTS_ENGINE", value = "faster" },
-      { name = "QWEN_TTS_MODEL", value = "Qwen/Qwen3-TTS-12Hz-0.6B-Base" },
+      { name = "QWEN_TTS_MODEL", value = "Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice" },
+      { name = "URL_PREFIX", value = "/custom" },
     ]
 
     logConfiguration = {
@@ -311,7 +365,7 @@ resource "aws_ecs_task_definition" "this" {
       options = {
         "awslogs-group"         = aws_cloudwatch_log_group.this.name
         "awslogs-region"        = var.aws_region
-        "awslogs-stream-prefix" = "ecs"
+        "awslogs-stream-prefix" = "custom"
       }
     }
 
@@ -322,10 +376,52 @@ resource "aws_ecs_task_definition" "this" {
   }])
 }
 
-resource "aws_ecs_service" "this" {
-  name            = var.project_name
+resource "aws_ecs_task_definition" "clone" {
+  family                   = "${var.project_name}-clone"
+  network_mode             = "bridge"
+  requires_compatibilities = ["EC2"]
+  execution_role_arn       = aws_iam_role.ecs_execution.arn
+  task_role_arn            = aws_iam_role.ecs_task.arn
+  cpu                      = "4096"
+  memory                   = "14336"
+
+  container_definitions = jsonencode([{
+    name      = "${var.project_name}-clone"
+    image     = "${aws_ecr_repository.this.repository_url}:clone"
+    essential = true
+
+    portMappings = [{
+      containerPort = var.container_port
+      hostPort      = 0
+      protocol      = "tcp"
+    }]
+
+    environment = [
+      { name = "QWEN_TTS_ENGINE", value = "faster" },
+      { name = "QWEN_TTS_MODEL", value = "Qwen/Qwen3-TTS-12Hz-0.6B-Base" },
+      { name = "URL_PREFIX", value = "/clone" },
+    ]
+
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        "awslogs-group"         = aws_cloudwatch_log_group.this.name
+        "awslogs-region"        = var.aws_region
+        "awslogs-stream-prefix" = "clone"
+      }
+    }
+
+    resourceRequirements = [{
+      type  = "GPU"
+      value = "1"
+    }]
+  }])
+}
+
+resource "aws_ecs_service" "custom" {
+  name            = "${var.project_name}-custom"
   cluster         = aws_ecs_cluster.this.id
-  task_definition = aws_ecs_task_definition.this.arn
+  task_definition = aws_ecs_task_definition.custom.arn
   desired_count   = var.desired_count
 
   capacity_provider_strategy {
@@ -334,8 +430,28 @@ resource "aws_ecs_service" "this" {
   }
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.this.arn
-    container_name   = var.project_name
+    target_group_arn = aws_lb_target_group.custom.arn
+    container_name   = "${var.project_name}-custom"
+    container_port   = var.container_port
+  }
+
+  depends_on = [aws_lb_listener.this, aws_ecs_cluster_capacity_providers.this]
+}
+
+resource "aws_ecs_service" "clone" {
+  name            = "${var.project_name}-clone"
+  cluster         = aws_ecs_cluster.this.id
+  task_definition = aws_ecs_task_definition.clone.arn
+  desired_count   = var.desired_count
+
+  capacity_provider_strategy {
+    capacity_provider = aws_ecs_capacity_provider.this.name
+    weight            = 1
+  }
+
+  load_balancer {
+    target_group_arn = aws_lb_target_group.clone.arn
+    container_name   = "${var.project_name}-clone"
     container_port   = var.container_port
   }
 
