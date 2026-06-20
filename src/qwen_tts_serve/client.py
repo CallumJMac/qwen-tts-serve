@@ -19,8 +19,9 @@ class QwenTTSClient:
         voice: str = "default",
         speed: float = 1.0,
         lang: str = "en-us",
+        chunk_size: int = 4,
     ) -> tuple[np.ndarray, int]:
-        chunks = list(self.create_stream(text, voice=voice, speed=speed, lang=lang))
+        chunks = list(self.create_stream(text, voice=voice, speed=speed, lang=lang, chunk_size=chunk_size))
         if not chunks:
             return np.array([], dtype=np.float32), SAMPLE_RATE
         arrays = [c for c, _sr in chunks]
@@ -32,9 +33,10 @@ class QwenTTSClient:
         voice: str = "default",
         speed: float = 1.0,
         lang: str = "en-us",
+        chunk_size: int = 4,
     ) -> Generator[tuple[np.ndarray, int]]:
         with connect(self._url) as ws:
-            ws.send(json.dumps({"text": text, "voice": voice, "language": "English"}))
+            ws.send(json.dumps({"text": text, "voice": voice, "voice_id": voice, "language": "English", "chunk_size": chunk_size}))
             while True:
                 msg = ws.recv()
                 if isinstance(msg, bytes):
