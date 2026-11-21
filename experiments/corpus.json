@@ -1,0 +1,19 @@
+{
+  "benchmark": {
+    "short": "Hello, how are you today?",
+    "medium": "A responsive voice assistant should begin speaking quickly, continue generating audio faster than it is played, and stop cleanly when the listener interrupts. This paragraph is long enough to measure steady generation without turning the benchmark into a long-form narration test.",
+    "long": "Deploying a text-to-speech model involves much more than loading a checkpoint and returning a wave file. The service must keep the model warm, stream playable audio as soon as possible, and expose health checks that reflect whether the GPU is genuinely ready. It also needs a transport that works with interruption, a client that does not inherit the server's machine-learning dependencies, and infrastructure that can replace unhealthy tasks safely. In this experiment, the same model and speaker are measured on the same NVIDIA A10G. We compare the official generation path with a CUDA-graph implementation, then measure the optimized service through its application load balancer. The goal is not to claim universal performance. It is to isolate the improvement on one reproducible deployment and report both typical and tail latency honestly. Raw timings, software versions, failures, and generated audio are retained so every number in the article can be traced back to an individual run."
+  },
+  "quality": {
+    "short_statement": "The train arrives at half past seven.",
+    "question": "Can a streaming voice remain natural at every chunk boundary?",
+    "exclamation": "That result is much faster than I expected!",
+    "numbers": "The experiment ran thirty times, used twenty-four kilohertz audio, and started at 9:45.",
+    "technical": "CUDA graphs replay a fixed sequence of GPU operations without repeated kernel launch overhead.",
+    "proper_names": "Qwen, PyTorch, FastAPI, and Amazon Web Services are part of this deployment.",
+    "punctuation": "First, warm the model; second, check readiness; finally, accept traffic.",
+    "contractions": "I wouldn't call it production-ready, but it's a useful and reproducible deployment.",
+    "long_sentence": "Although the model generates only a small number of codec frames each second, the server still has to coordinate token generation, waveform decoding, network delivery, and interruption without introducing clicks or long pauses.",
+    "two_sentences": "Streaming changes when audio is delivered. It should not silently change what the listener hears."
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "capacity": {
+    "short": "Hello, how are you today?",
+    "assistant": "A responsive voice assistant should begin speaking quickly and continue generating audio faster than it is played.",
+    "technical": "CUDA graphs reduce repeated kernel launch overhead while streaming synthesis continues over the network.",
+    "numbers": "The capacity study sends sixty requests at twenty-four kilohertz and retains every timeout or failure.",
+    "weather": "It will be cloudy this morning, with light rain expected after three o'clock.",
+    "calendar": "Your next meeting starts at ten thirty and includes the product, design, and engineering teams.",
+    "navigation": "Continue straight for two miles, then turn left at the traffic lights beside the library.",
+    "support": "I found the failed payment and can guide you through updating your billing details securely.",
+    "banking": "Your current balance is one thousand two hundred and forty pounds, excluding pending transactions.",
+    "shopping": "The blue running jacket is available in medium and can arrive by Friday afternoon.",
+    "travel": "Your train leaves platform seven at eighteen forty-five and arrives in Edinburgh just before midnight.",
+    "healthcare": "Please remember to take your medication with food and contact your doctor if the symptoms continue.",
+    "reminder": "I will remind you to call your mother tomorrow evening at seven.",
+    "smart_home": "The downstairs lights are off, the front door is locked, and the thermostat is set to nineteen degrees.",
+    "translation": "The phrase means that the restaurant is closed today but will reopen tomorrow morning.",
+    "education": "Photosynthesis allows plants to convert light energy, water, and carbon dioxide into glucose and oxygen.",
+    "accessibility": "The selected button opens account settings, where you can change the text size and contrast.",
+    "emergency": "Move to a safe location, call the emergency services, and do not return until authorities say it is safe.",
+    "story": "At the edge of the quiet village, a small red kite rose above the trees and disappeared into the clouds.",
+    "long_form": "When a voice agent handles many conversations at once, low first-audio latency is only part of the problem. The service must also sustain smooth playback, preserve audio quality, and recover predictably when demand exceeds the capacity of a single graphics processor."
+  }
+}

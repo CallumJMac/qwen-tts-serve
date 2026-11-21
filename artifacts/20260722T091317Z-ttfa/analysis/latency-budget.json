@@ -1,0 +1,711 @@
+{
+  "conditions": [
+    {
+      "bottleneck": {
+        "p50_ms": 40.47983147302148,
+        "stage": "unattributed_engine_ms"
+      },
+      "condition": {
+        "backend": "current",
+        "id": "current:alb:isolated:pf1",
+        "packet_frames": 1,
+        "profile": "isolated",
+        "route": "alb"
+      },
+      "measured_stage_p50_total_ms": 107.91031277517504,
+      "paper_comparability": "smaller-packet experiment (not paper-comparable)",
+      "stages": [
+        {
+          "p50_ms": 0.003885000069204,
+          "percentage": 0.00360021203654388,
+          "stage": "queue_wait_ms"
+        },
+        {
+          "p50_ms": 37.735819816589355,
+          "percentage": 34.96961397490319,
+          "stage": "prefill_ms"
+        },
+        {
+          "p50_ms": 27.695178985595703,
+          "percentage": 25.664997416231223,
+          "stage": "decode_ms"
+        },
+        {
+          "p50_ms": 40.47983147302148,
+          "percentage": 37.51247719702091,
+          "stage": "unattributed_engine_ms"
+        },
+        {
+          "p50_ms": 0.008595500048614,
+          "percentage": 0.00796541111554577,
+          "stage": "first_chunk_serialize_ms"
+        },
+        {
+          "p50_ms": 0.653743999919243,
+          "percentage": 0.6058216152901726,
+          "stage": "first_chunk_send_ms"
+        },
+        {
+          "p50_ms": 1.333257999931448,
+          "percentage": 1.2355241734024205,
+          "stage": "transport_residual_ms"
+        }
+      ]
+    },
+    {
+      "bottleneck": {
+        "p50_ms": 55.27174472808838,
+        "stage": "decode_ms"
+      },
+      "condition": {
+        "backend": "current",
+        "id": "current:alb:isolated:pf2",
+        "packet_frames": 2,
+        "profile": "isolated",
+        "route": "alb"
+      },
+      "measured_stage_p50_total_ms": 137.3827290481131,
+      "paper_comparability": "smaller-packet experiment (not paper-comparable)",
+      "stages": [
+        {
+          "p50_ms": 0.003904999630322,
+          "percentage": 0.0028424239767099267,
+          "stage": "queue_wait_ms"
+        },
+        {
+          "p50_ms": 38.02025318145752,
+          "percentage": 27.67469640826713,
+          "stage": "prefill_ms"
+        },
+        {
+          "p50_ms": 55.27174472808838,
+          "percentage": 40.23194553715084,
+          "stage": "decode_ms"
+        },
+        {
+          "p50_ms": 41.25991513910776,
+          "percentage": 30.032825395874934,
+          "stage": "unattributed_engine_ms"
+        },
+        {
+          "p50_ms": 0.009865499578154,
+          "percentage": 0.007181033341315401,
+          "stage": "first_chunk_serialize_ms"
+        },
+        {
+          "p50_ms": 1.433774999895832,
+          "percentage": 1.0436355499923915,
+          "stage": "first_chunk_send_ms"
+        },
+        {
+          "p50_ms": 1.383270500355138,
+          "percentage": 1.0068736513966758,
+          "stage": "transport_residual_ms"
+        }
+      ]
+    },
+    {
+      "bottleneck": {
+        "p50_ms": 110.2668046951294,
+        "stage": "decode_ms"
+      },
+      "condition": {
+        "backend": "current",
+        "id": "current:alb:isolated:pf4",
+        "packet_frames": 4,
+        "profile": "isolated",
+        "route": "alb"
+      },
+      "measured_stage_p50_total_ms": 194.35197409757166,
+      "paper_comparability": "four-frame paper-comparable configuration",
+      "stages": [
+        {
+          "p50_ms": 0.003610000021581,
+          "percentage": 0.0018574547741761814,
+          "stage": "queue_wait_ms"
+        },
+        {
+          "p50_ms": 37.64188289642334,
+          "percentage": 19.367893262316834,
+          "stage": "prefill_ms"
+        },
+        {
+          "p50_ms": 110.2668046951294,
+          "percentage": 56.73562370906071,
+          "stage": "decode_ms"
+        },
+        {
+          "p50_ms": 41.105501506081055,
+          "percentage": 21.150030349290212,
+          "stage": "unattributed_engine_ms"
+        },
+        {
+          "p50_ms": 0.012314999821683,
+          "percentage": 0.006336441849312232,
+          "stage": "first_chunk_serialize_ms"
+        },
+        {
+          "p50_ms": 3.723381999861886,
+          "percentage": 1.9157932494128487,
+          "stage": "first_chunk_send_ms"
+        },
+        {
+          "p50_ms": 1.598478000232717,
+          "percentage": 0.8224655332959077,
+          "stage": "transport_residual_ms"
+        }
+      ]
+    },
+    {
+      "bottleneck": {
+        "p50_ms": 220.32451629638672,
+        "stage": "decode_ms"
+      },
+      "condition": {
+        "backend": "current",
+        "id": "current:alb:isolated:pf8",
+        "packet_frames": 8,
+        "profile": "isolated",
+        "route": "alb"
+      },
+      "measured_stage_p50_total_ms": 308.7767689030443,
+      "paper_comparability": "eight-frame continuity trade-off experiment (not paper-comparable)",
+      "stages": [
+        {
+          "p50_ms": 0.003225499767723,
+          "percentage": 0.00104460571278787,
+          "stage": "queue_wait_ms"
+        },
+        {
+          "p50_ms": 37.62948513031006,
+          "percentage": 12.186630899724744,
+          "stage": "prefill_ms"
+        },
+        {
+          "p50_ms": 220.32451629638672,
+          "percentage": 71.35398076711155,
+          "stage": "decode_ms"
+        },
+        {
+          "p50_ms": 40.95392097678996,
+          "percentage": 13.263277908594691,
+          "stage": "unattributed_engine_ms"
+        },
+        {
+          "p50_ms": 0.016670000150043,
+          "percentage": 0.005398722257916161,
+          "stage": "first_chunk_serialize_ms"
+        },
+        {
+          "p50_ms": 7.763892000184569,
+          "percentage": 2.5144028897531556,
+          "stage": "first_chunk_send_ms"
+        },
+        {
+          "p50_ms": 2.085058999455214,
+          "percentage": 0.6752642068451468,
+          "stage": "transport_residual_ms"
+        }
+      ]
+    },
+    {
+      "bottleneck": {
+        "p50_ms": 40.48669333565158,
+        "stage": "unattributed_engine_ms"
+      },
+      "condition": {
+        "backend": "current",
+        "id": "current:localhost:isolated:pf1",
+        "packet_frames": 1,
+        "profile": "isolated",
+        "route": "localhost"
+      },
+      "measured_stage_p50_total_ms": 107.0837033605585,
+      "paper_comparability": "smaller-packet experiment (not paper-comparable)",
+      "stages": [
+        {
+          "p50_ms": 0.002445000063744,
+          "percentage": 0.002283260652194209,
+          "stage": "queue_wait_ms"
+        },
+        {
+          "p50_ms": 37.715792655944824,
+          "percentage": 35.2208519805792,
+          "stage": "prefill_ms"
+        },
+        {
+          "p50_ms": 27.701377868652344,
+          "percentage": 25.868901615570593,
+          "stage": "decode_ms"
+        },
+        {
+          "p50_ms": 40.48669333565158,
+          "percentage": 37.80845456878717,
+          "stage": "unattributed_engine_ms"
+        },
+        {
+          "p50_ms": 0.008915500075091,
+          "percentage": 0.008325730055367875,
+          "stage": "first_chunk_serialize_ms"
+        },
+        {
+          "p50_ms": 0.67396400004327,
+          "percentage": 0.6293805489468224,
+          "stage": "first_chunk_send_ms"
+        },
+        {
+          "p50_ms": 0.494515000127649,
+          "percentage": 0.4618022954086501,
+          "stage": "transport_residual_ms"
+        }
+      ]
+    },
+    {
+      "bottleneck": {
+        "p50_ms": 55.249810218811035,
+        "stage": "decode_ms"
+      },
+      "condition": {
+        "backend": "current",
+        "id": "current:localhost:isolated:pf2",
+        "packet_frames": 2,
+        "profile": "isolated",
+        "route": "localhost"
+      },
+      "measured_stage_p50_total_ms": 136.2187653392084,
+      "paper_comparability": "smaller-packet experiment (not paper-comparable)",
+      "stages": [
+        {
+          "p50_ms": 0.003685000137921,
+          "percentage": 0.00270520741304967,
+          "stage": "queue_wait_ms"
+        },
+        {
+          "p50_ms": 37.94968128204346,
+          "percentage": 27.859363713613284,
+          "stage": "prefill_ms"
+        },
+        {
+          "p50_ms": 55.249810218811035,
+          "percentage": 40.55961752496391,
+          "stage": "decode_ms"
+        },
+        {
+          "p50_ms": 41.03726133826058,
+          "percentage": 30.125997131210713,
+          "stage": "unattributed_engine_ms"
+        },
+        {
+          "p50_ms": 0.009970500059353,
+          "percentage": 0.007319476163599576,
+          "stage": "first_chunk_serialize_ms"
+        },
+        {
+          "p50_ms": 1.427329999842186,
+          "percentage": 1.047821859409668,
+          "stage": "first_chunk_send_ms"
+        },
+        {
+          "p50_ms": 0.541027000053873,
+          "percentage": 0.39717508722577377,
+          "stage": "transport_residual_ms"
+        }
+      ]
+    },
+    {
+      "bottleneck": {
+        "p50_ms": 110.28671264648438,
+        "stage": "decode_ms"
+      },
+      "condition": {
+        "backend": "current",
+        "id": "current:localhost:isolated:pf4",
+        "packet_frames": 4,
+        "profile": "isolated",
+        "route": "localhost"
+      },
+      "measured_stage_p50_total_ms": 193.38215769175804,
+      "paper_comparability": "four-frame paper-comparable configuration",
+      "stages": [
+        {
+          "p50_ms": 0.003655000000435,
+          "percentage": 0.001890039931326496,
+          "stage": "queue_wait_ms"
+        },
+        {
+          "p50_ms": 37.66453266143799,
+          "percentage": 19.476736174116674,
+          "stage": "prefill_ms"
+        },
+        {
+          "p50_ms": 110.28671264648438,
+          "percentage": 57.03044891156719,
+          "stage": "decode_ms"
+        },
+        {
+          "p50_ms": 41.08632488396324,
+          "percentage": 21.24618184757918,
+          "stage": "unattributed_engine_ms"
+        },
+        {
+          "p50_ms": 0.012175999927422,
+          "percentage": 0.006296340920360381,
+          "stage": "first_chunk_serialize_ms"
+        },
+        {
+          "p50_ms": 3.710419000071852,
+          "percentage": 1.9186976939134601,
+          "stage": "first_chunk_send_ms"
+        },
+        {
+          "p50_ms": 0.618337499872723,
+          "percentage": 0.3197489919718052,
+          "stage": "transport_residual_ms"
+        }
+      ]
+    },
+    {
+      "bottleneck": {
+        "p50_ms": 220.3460931777954,
+        "stage": "decode_ms"
+      },
+      "condition": {
+        "backend": "current",
+        "id": "current:localhost:isolated:pf8",
+        "packet_frames": 8,
+        "profile": "isolated",
+        "route": "localhost"
+      },
+      "measured_stage_p50_total_ms": 307.31380924089535,
+      "paper_comparability": "eight-frame continuity trade-off experiment (not paper-comparable)",
+      "stages": [
+        {
+          "p50_ms": 0.003520000063872,
+          "percentage": 0.001145409011253628,
+          "stage": "queue_wait_ms"
+        },
+        {
+          "p50_ms": 37.52493858337402,
+          "percentage": 12.210625573925704,
+          "stage": "prefill_ms"
+        },
+        {
+          "p50_ms": 220.3460931777954,
+          "percentage": 71.70068072179335,
+          "stage": "decode_ms"
+        },
+        {
+          "p50_ms": 40.93813497956944,
+          "percentage": 13.32128064166459,
+          "stage": "unattributed_engine_ms"
+        },
+        {
+          "p50_ms": 0.017125999875134,
+          "percentage": 0.00557280517834113,
+          "stage": "first_chunk_serialize_ms"
+        },
+        {
+          "p50_ms": 7.742231000065658,
+          "percentage": 2.519324145956853,
+          "stage": "first_chunk_send_ms"
+        },
+        {
+          "p50_ms": 0.741765500151814,
+          "percentage": 0.24137070246991835,
+          "stage": "transport_residual_ms"
+        }
+      ]
+    },
+    {
+      "bottleneck": {
+        "p50_ms": 32926.48281200013,
+        "stage": "queue_wait_ms"
+      },
+      "condition": {
+        "backend": "current",
+        "id": "current:localhost:sustained:pf1",
+        "packet_frames": 1,
+        "profile": "sustained",
+        "route": "localhost"
+      },
+      "measured_stage_p50_total_ms": 33034.681908729006,
+      "paper_comparability": "smaller-packet experiment (not paper-comparable)",
+      "stages": [
+        {
+          "p50_ms": 32926.48281200013,
+          "percentage": 99.67246817442404,
+          "stage": "queue_wait_ms"
+        },
+        {
+          "p50_ms": 37.633299827575684,
+          "percentage": 0.11392057574991074,
+          "stage": "prefill_ms"
+        },
+        {
+          "p50_ms": 27.69613265991211,
+          "percentage": 0.08383956211969382,
+          "stage": "decode_ms"
+        },
+        {
+          "p50_ms": 41.6331937412906,
+          "percentage": 0.1260287411161345,
+          "stage": "unattributed_engine_ms"
+        },
+        {
+          "p50_ms": 0.008729999990464,
+          "percentage": 2.6426771762428277e-05,
+          "stage": "first_chunk_serialize_ms"
+        },
+        {
+          "p50_ms": 0.667924000026687,
+          "percentage": 0.0020218871847232658,
+          "stage": "first_chunk_send_ms"
+        },
+        {
+          "p50_ms": 0.559816500077432,
+          "percentage": 0.0016946326337397165,
+          "stage": "transport_residual_ms"
+        }
+      ]
+    },
+    {
+      "bottleneck": {
+        "p50_ms": 21577.155003000145,
+        "stage": "queue_wait_ms"
+      },
+      "condition": {
+        "backend": "current",
+        "id": "current:localhost:sustained:pf2",
+        "packet_frames": 2,
+        "profile": "sustained",
+        "route": "localhost"
+      },
+      "measured_stage_p50_total_ms": 21713.254600936583,
+      "paper_comparability": "smaller-packet experiment (not paper-comparable)",
+      "stages": [
+        {
+          "p50_ms": 21577.155003000145,
+          "percentage": 99.37319577171739,
+          "stage": "queue_wait_ms"
+        },
+        {
+          "p50_ms": 37.676095962524414,
+          "percentage": 0.173516576187981,
+          "stage": "prefill_ms"
+        },
+        {
+          "p50_ms": 55.24611473083496,
+          "percentage": 0.25443497875464494,
+          "stage": "decode_ms"
+        },
+        {
+          "p50_ms": 41.12319374257822,
+          "percentage": 0.18939212245410877,
+          "stage": "unattributed_engine_ms"
+        },
+        {
+          "p50_ms": 0.009960000170395,
+          "percentage": 4.5870600024951504e-05,
+          "stage": "first_chunk_serialize_ms"
+        },
+        {
+          "p50_ms": 1.457022000067809,
+          "percentage": 0.006710288378440335,
+          "stage": "first_chunk_send_ms"
+        },
+        {
+          "p50_ms": 0.58721150026031,
+          "percentage": 0.0027043919073973417,
+          "stage": "transport_residual_ms"
+        }
+      ]
+    },
+    {
+      "bottleneck": {
+        "p50_ms": 11571.25716749988,
+        "stage": "queue_wait_ms"
+      },
+      "condition": {
+        "backend": "current",
+        "id": "current:localhost:sustained:pf4",
+        "packet_frames": 4,
+        "profile": "sustained",
+        "route": "localhost"
+      },
+      "measured_stage_p50_total_ms": 11764.405021982384,
+      "paper_comparability": "four-frame paper-comparable configuration",
+      "stages": [
+        {
+          "p50_ms": 11571.25716749988,
+          "percentage": 98.35820125096342,
+          "stage": "queue_wait_ms"
+        },
+        {
+          "p50_ms": 37.59336471557617,
+          "percentage": 0.3195517720218836,
+          "stage": "prefill_ms"
+        },
+        {
+          "p50_ms": 110.27371883392334,
+          "percentage": 0.9373505810780175,
+          "stage": "decode_ms"
+        },
+        {
+          "p50_ms": 40.89734543231316,
+          "percentage": 0.3476363263241482,
+          "stage": "unattributed_engine_ms"
+        },
+        {
+          "p50_ms": 0.012015500033158,
+          "percentage": 0.00010213436217731736,
+          "stage": "first_chunk_serialize_ms"
+        },
+        {
+          "p50_ms": 3.725006999957259,
+          "percentage": 0.0316633692311417,
+          "stage": "first_chunk_send_ms"
+        },
+        {
+          "p50_ms": 0.646403000700957,
+          "percentage": 0.0054945660192174655,
+          "stage": "transport_residual_ms"
+        }
+      ]
+    },
+    {
+      "bottleneck": {
+        "p50_ms": 7896.041892000085,
+        "stage": "queue_wait_ms"
+      },
+      "condition": {
+        "backend": "current",
+        "id": "current:localhost:sustained:pf8",
+        "packet_frames": 8,
+        "profile": "sustained",
+        "route": "localhost"
+      },
+      "measured_stage_p50_total_ms": 8203.286569769261,
+      "paper_comparability": "eight-frame continuity trade-off experiment (not paper-comparable)",
+      "stages": [
+        {
+          "p50_ms": 7896.041892000085,
+          "percentage": 96.2546148405758,
+          "stage": "queue_wait_ms"
+        },
+        {
+          "p50_ms": 37.577152252197266,
+          "percentage": 0.4580743575468463,
+          "stage": "prefill_ms"
+        },
+        {
+          "p50_ms": 220.32630443572998,
+          "percentage": 2.6858296679245135,
+          "stage": "decode_ms"
+        },
+        {
+          "p50_ms": 40.74946258060663,
+          "percentage": 0.4967455694011287,
+          "stage": "unattributed_engine_ms"
+        },
+        {
+          "p50_ms": 0.01710050037218,
+          "percentage": 0.00020845913679522955,
+          "stage": "first_chunk_serialize_ms"
+        },
+        {
+          "p50_ms": 7.790242000282888,
+          "percentage": 0.09496488918223916,
+          "stage": "first_chunk_send_ms"
+        },
+        {
+          "p50_ms": 0.784415999987687,
+          "percentage": 0.009562216232679418,
+          "stage": "transport_residual_ms"
+        }
+      ]
+    }
+  ],
+  "omitted_conditions": [
+    {
+      "condition": {
+        "backend": "omni",
+        "id": "omni:localhost:isolated:pf1",
+        "packet_frames": 1,
+        "profile": "isolated",
+        "route": "localhost"
+      },
+      "reason": "measured_stage_spans_unavailable"
+    },
+    {
+      "condition": {
+        "backend": "omni",
+        "id": "omni:localhost:isolated:pf2",
+        "packet_frames": 2,
+        "profile": "isolated",
+        "route": "localhost"
+      },
+      "reason": "measured_stage_spans_unavailable"
+    },
+    {
+      "condition": {
+        "backend": "omni",
+        "id": "omni:localhost:isolated:pf4",
+        "packet_frames": 4,
+        "profile": "isolated",
+        "route": "localhost"
+      },
+      "reason": "measured_stage_spans_unavailable"
+    },
+    {
+      "condition": {
+        "backend": "omni",
+        "id": "omni:localhost:isolated:pf8",
+        "packet_frames": 8,
+        "profile": "isolated",
+        "route": "localhost"
+      },
+      "reason": "measured_stage_spans_unavailable"
+    },
+    {
+      "condition": {
+        "backend": "omni",
+        "id": "omni:localhost:sustained:pf1",
+        "packet_frames": 1,
+        "profile": "sustained",
+        "route": "localhost"
+      },
+      "reason": "measured_stage_spans_unavailable"
+    },
+    {
+      "condition": {
+        "backend": "omni",
+        "id": "omni:localhost:sustained:pf2",
+        "packet_frames": 2,
+        "profile": "sustained",
+        "route": "localhost"
+      },
+      "reason": "measured_stage_spans_unavailable"
+    },
+    {
+      "condition": {
+        "backend": "omni",
+        "id": "omni:localhost:sustained:pf4",
+        "packet_frames": 4,
+        "profile": "sustained",
+        "route": "localhost"
+      },
+      "reason": "measured_stage_spans_unavailable"
+    },
+    {
+      "condition": {
+        "backend": "omni",
+        "id": "omni:localhost:sustained:pf8",
+        "packet_frames": 8,
+        "profile": "sustained",
+        "route": "localhost"
+      },
+      "reason": "measured_stage_spans_unavailable"
+    }
+  ],
+  "percentage_denominator": "sum of available measured stage p50 values after clamping transport timer noise to zero for visualization"
+}

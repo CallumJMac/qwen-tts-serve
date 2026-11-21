@@ -1,0 +1,30 @@
+{
+  "capacity-closed-loop": {
+    "height": 276,
+    "width": 595
+  },
+  "cost-per-character": {
+    "height": 280,
+    "width": 414
+  },
+  "first-speech": {
+    "height": 276,
+    "width": 548
+  },
+  "omni-gap-mechanism": {
+    "height": 277,
+    "width": 580
+  },
+  "open-loop-queue": {
+    "height": 280,
+    "width": 419
+  },
+  "playback-timeline": {
+    "height": 276,
+    "width": 567
+  },
+  "ttfa-decomposition": {
+    "height": 280,
+    "width": 422
+  }
+}

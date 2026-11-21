@@ -1,0 +1,885 @@
+{
+  "conditions": [
+    {
+      "achieved_request_rate_rps": 0.2903634732847708,
+      "audio_throughput_seconds_per_second": 2.189340588567172,
+      "condition": {
+        "backend": "current",
+        "concurrency": 1,
+        "profile": "closed"
+      },
+      "condition_duration_seconds": 206.63756126499993,
+      "failure_reasons": {},
+      "invalid_measurements": {
+        "reasons": {},
+        "records": 0
+      },
+      "meets_slos": true,
+      "metrics": {
+        "max_underrun_seconds": {
+          "count": 60,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p95": 0.0
+        },
+        "ttfa_seconds": {
+          "count": 60,
+          "max": 0.21536930299998858,
+          "min": 0.19193007900003067,
+          "p50": 0.194851138499985,
+          "p95": 0.197465658000067
+        }
+      },
+      "requests": {
+        "failed": 0,
+        "success_rate": 1.0,
+        "successful": 60,
+        "total": 60
+      },
+      "saturated": false,
+      "saturation_reasons": [],
+      "valid_measurements": 60
+    },
+    {
+      "achieved_request_rate_rps": 0.2904336524001117,
+      "audio_throughput_seconds_per_second": 2.1898697390968422,
+      "condition": {
+        "backend": "current",
+        "concurrency": 2,
+        "profile": "closed"
+      },
+      "condition_duration_seconds": 206.5876302700001,
+      "failure_reasons": {},
+      "invalid_measurements": {
+        "reasons": {},
+        "records": 0
+      },
+      "meets_slos": false,
+      "metrics": {
+        "max_underrun_seconds": {
+          "count": 60,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p95": 0.0
+        },
+        "ttfa_seconds": {
+          "count": 60,
+          "max": 8.514950988999999,
+          "min": 0.1956561250001414,
+          "p50": 3.408363957500001,
+          "p95": 4.981369185350093
+        }
+      },
+      "requests": {
+        "failed": 0,
+        "success_rate": 1.0,
+        "successful": 60,
+        "total": 60
+      },
+      "saturated": true,
+      "saturation_reasons": [
+        "p95_ttfa_above_maximum"
+      ],
+      "valid_measurements": 60
+    },
+    {
+      "achieved_request_rate_rps": 0.2900899965277381,
+      "audio_throughput_seconds_per_second": 2.187278573819145,
+      "condition": {
+        "backend": "current",
+        "concurrency": 4,
+        "profile": "closed"
+      },
+      "condition_duration_seconds": 206.83236484600002,
+      "failure_reasons": {},
+      "invalid_measurements": {
+        "reasons": {},
+        "records": 0
+      },
+      "meets_slos": false,
+      "metrics": {
+        "max_underrun_seconds": {
+          "count": 60,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p95": 0.0
+        },
+        "ttfa_seconds": {
+          "count": 60,
+          "max": 16.387909977000163,
+          "min": 0.19904637500007993,
+          "p50": 9.240808083500042,
+          "p95": 14.037079576050019
+        }
+      },
+      "requests": {
+        "failed": 0,
+        "success_rate": 1.0,
+        "successful": 60,
+        "total": 60
+      },
+      "saturated": true,
+      "saturation_reasons": [
+        "p95_ttfa_above_maximum"
+      ],
+      "valid_measurements": 60
+    },
+    {
+      "achieved_request_rate_rps": 0.29020378685493475,
+      "audio_throughput_seconds_per_second": 2.188136552886208,
+      "condition": {
+        "backend": "current",
+        "concurrency": 8,
+        "profile": "closed"
+      },
+      "condition_duration_seconds": 206.75126486199997,
+      "failure_reasons": {},
+      "invalid_measurements": {
+        "reasons": {},
+        "records": 0
+      },
+      "meets_slos": false,
+      "metrics": {
+        "max_underrun_seconds": {
+          "count": 60,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p95": 0.0
+        },
+        "ttfa_seconds": {
+          "count": 60,
+          "max": 30.87796735300003,
+          "min": 0.1955027809999592,
+          "p50": 21.99829484250006,
+          "p95": 29.637841249950053
+        }
+      },
+      "requests": {
+        "failed": 0,
+        "success_rate": 1.0,
+        "successful": 60,
+        "total": 60
+      },
+      "saturated": true,
+      "saturation_reasons": [
+        "p95_ttfa_above_maximum"
+      ],
+      "valid_measurements": 60
+    },
+    {
+      "achieved_request_rate_rps": 0.29009880036813646,
+      "audio_throughput_seconds_per_second": 2.1873449547757486,
+      "condition": {
+        "backend": "current",
+        "concurrency": 16,
+        "profile": "closed"
+      },
+      "condition_duration_seconds": 206.82608795300007,
+      "failure_reasons": {},
+      "invalid_measurements": {
+        "reasons": {},
+        "records": 0
+      },
+      "meets_slos": false,
+      "metrics": {
+        "max_underrun_seconds": {
+          "count": 60,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p95": 0.0
+        },
+        "ttfa_seconds": {
+          "count": 60,
+          "max": 55.18423091,
+          "min": 0.20141169799990166,
+          "p50": 49.71854060700002,
+          "p95": 54.6511531001503
+        }
+      },
+      "requests": {
+        "failed": 0,
+        "success_rate": 1.0,
+        "successful": 60,
+        "total": 60
+      },
+      "saturated": true,
+      "saturation_reasons": [
+        "p95_ttfa_above_maximum"
+      ],
+      "valid_measurements": 60
+    },
+    {
+      "achieved_request_rate_rps": 0.29030393627706497,
+      "audio_throughput_seconds_per_second": 2.18889167952907,
+      "condition": {
+        "backend": "current",
+        "concurrency": 32,
+        "profile": "closed"
+      },
+      "condition_duration_seconds": 206.67993954700023,
+      "failure_reasons": {},
+      "invalid_measurements": {
+        "reasons": {},
+        "records": 0
+      },
+      "meets_slos": false,
+      "metrics": {
+        "max_underrun_seconds": {
+          "count": 60,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p95": 0.0
+        },
+        "ttfa_seconds": {
+          "count": 60,
+          "max": 106.41735231700022,
+          "min": 0.2077437530001589,
+          "p50": 96.99570739299975,
+          "p95": 105.16046132319968
+        }
+      },
+      "requests": {
+        "failed": 0,
+        "success_rate": 1.0,
+        "successful": 60,
+        "total": 60
+      },
+      "saturated": true,
+      "saturation_reasons": [
+        "p95_ttfa_above_maximum"
+      ],
+      "valid_measurements": 60
+    },
+    {
+      "achieved_request_rate_rps": 0.2711515079160748,
+      "audio_throughput_seconds_per_second": 2.044482369687204,
+      "condition": {
+        "backend": "current",
+        "offered_rps": 0.25,
+        "profile": "open"
+      },
+      "condition_duration_seconds": 221.2785038930001,
+      "failure_reasons": {},
+      "invalid_measurements": {
+        "reasons": {},
+        "records": 0
+      },
+      "meets_slos": false,
+      "metrics": {
+        "max_underrun_seconds": {
+          "count": 60,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p95": 0.0
+        },
+        "ttfa_seconds": {
+          "count": 60,
+          "max": 24.252175868999984,
+          "min": 0.19369112899994434,
+          "p50": 12.081432734499913,
+          "p95": 20.318666821999816
+        }
+      },
+      "requests": {
+        "failed": 0,
+        "success_rate": 1.0,
+        "successful": 60,
+        "total": 60
+      },
+      "saturated": true,
+      "saturation_reasons": [
+        "p95_ttfa_above_maximum"
+      ],
+      "valid_measurements": 60
+    },
+    {
+      "achieved_request_rate_rps": 0.29015191287303244,
+      "audio_throughput_seconds_per_second": 2.1877454230626645,
+      "condition": {
+        "backend": "current",
+        "offered_rps": 0.5,
+        "profile": "open"
+      },
+      "condition_duration_seconds": 206.7882282970004,
+      "failure_reasons": {},
+      "invalid_measurements": {
+        "reasons": {},
+        "records": 0
+      },
+      "meets_slos": false,
+      "metrics": {
+        "max_underrun_seconds": {
+          "count": 60,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p95": 0.0
+        },
+        "ttfa_seconds": {
+          "count": 60,
+          "max": 102.69183200499992,
+          "min": 0.19353449499976705,
+          "p50": 51.74479522599995,
+          "p95": 95.58705835215036
+        }
+      },
+      "requests": {
+        "failed": 0,
+        "success_rate": 1.0,
+        "successful": 60,
+        "total": 60
+      },
+      "saturated": true,
+      "saturation_reasons": [
+        "p95_ttfa_above_maximum"
+      ],
+      "valid_measurements": 60
+    },
+    {
+      "achieved_request_rate_rps": 0.2904420256365078,
+      "audio_throughput_seconds_per_second": 2.1899328732992682,
+      "condition": {
+        "backend": "current",
+        "offered_rps": 1.0,
+        "profile": "open"
+      },
+      "condition_duration_seconds": 206.58167449600023,
+      "failure_reasons": {},
+      "invalid_measurements": {
+        "reasons": {},
+        "records": 0
+      },
+      "meets_slos": false,
+      "metrics": {
+        "max_underrun_seconds": {
+          "count": 60,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p95": 0.0
+        },
+        "ttfa_seconds": {
+          "count": 60,
+          "max": 111.97551720200045,
+          "min": 0.19541822600012893,
+          "p50": 74.86936038850013,
+          "p95": 109.20642628065015
+        }
+      },
+      "requests": {
+        "failed": 0,
+        "success_rate": 1.0,
+        "successful": 60,
+        "total": 60
+      },
+      "saturated": true,
+      "saturation_reasons": [
+        "p95_ttfa_above_maximum"
+      ],
+      "valid_measurements": 60
+    },
+    {
+      "achieved_request_rate_rps": 0.29009167562361987,
+      "audio_throughput_seconds_per_second": 2.187291234202094,
+      "condition": {
+        "backend": "current",
+        "offered_rps": 2.0,
+        "profile": "open"
+      },
+      "condition_duration_seconds": 206.83116766800003,
+      "failure_reasons": {},
+      "invalid_measurements": {
+        "reasons": {},
+        "records": 0
+      },
+      "meets_slos": false,
+      "metrics": {
+        "max_underrun_seconds": {
+          "count": 60,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p95": 0.0
+        },
+        "ttfa_seconds": {
+          "count": 60,
+          "max": 112.19599051399973,
+          "min": 0.19456786000000648,
+          "p50": 86.16408687900002,
+          "p95": 111.11845598375025
+        }
+      },
+      "requests": {
+        "failed": 0,
+        "success_rate": 1.0,
+        "successful": 60,
+        "total": 60
+      },
+      "saturated": true,
+      "saturation_reasons": [
+        "p95_ttfa_above_maximum"
+      ],
+      "valid_measurements": 60
+    },
+    {
+      "achieved_request_rate_rps": 0.47811707652935825,
+      "audio_throughput_seconds_per_second": 3.7331381335412295,
+      "condition": {
+        "backend": "omni",
+        "concurrency": 1,
+        "profile": "closed"
+      },
+      "condition_duration_seconds": 125.49227573200005,
+      "failure_reasons": {},
+      "invalid_measurements": {
+        "reasons": {},
+        "records": 0
+      },
+      "meets_slos": false,
+      "metrics": {
+        "max_underrun_seconds": {
+          "count": 60,
+          "max": 0.21528533599939692,
+          "min": 0.20101992799982327,
+          "p50": 0.207853570499765,
+          "p95": 0.213968661200033
+        },
+        "ttfa_seconds": {
+          "count": 60,
+          "max": 0.7348220220001167,
+          "min": 0.16233384899987868,
+          "p50": 0.165266140999847,
+          "p95": 0.173563312749957
+        }
+      },
+      "requests": {
+        "failed": 0,
+        "success_rate": 1.0,
+        "successful": 60,
+        "total": 60
+      },
+      "saturated": true,
+      "saturation_reasons": [
+        "p95_underrun_above_maximum"
+      ],
+      "valid_measurements": 60
+    },
+    {
+      "achieved_request_rate_rps": 0.8002694641731135,
+      "audio_throughput_seconds_per_second": 6.147136510801742,
+      "condition": {
+        "backend": "omni",
+        "concurrency": 2,
+        "profile": "closed"
+      },
+      "condition_duration_seconds": 74.97474624000006,
+      "failure_reasons": {},
+      "invalid_measurements": {
+        "reasons": {},
+        "records": 0
+      },
+      "meets_slos": false,
+      "metrics": {
+        "max_underrun_seconds": {
+          "count": 60,
+          "max": 0.3801461099997141,
+          "min": 0.24377707099984036,
+          "p50": 0.270219883999971,
+          "p95": 0.374699371899874
+        },
+        "ttfa_seconds": {
+          "count": 60,
+          "max": 0.6438605339999413,
+          "min": 0.1815827690002152,
+          "p50": 0.199123593000195,
+          "p95": 0.284651673449935
+        }
+      },
+      "requests": {
+        "failed": 0,
+        "success_rate": 1.0,
+        "successful": 60,
+        "total": 60
+      },
+      "saturated": true,
+      "saturation_reasons": [
+        "p95_underrun_above_maximum"
+      ],
+      "valid_measurements": 60
+    },
+    {
+      "achieved_request_rate_rps": 1.2222705077832317,
+      "audio_throughput_seconds_per_second": 9.075765943793089,
+      "condition": {
+        "backend": "omni",
+        "concurrency": 4,
+        "profile": "closed"
+      },
+      "condition_duration_seconds": 49.08896976400001,
+      "failure_reasons": {},
+      "invalid_measurements": {
+        "reasons": {},
+        "records": 0
+      },
+      "meets_slos": false,
+      "metrics": {
+        "max_underrun_seconds": {
+          "count": 60,
+          "max": 0.6979927820002558,
+          "min": 0.03852496199988309,
+          "p50": 0.450517375999652,
+          "p95": 0.622211786199773
+        },
+        "ttfa_seconds": {
+          "count": 60,
+          "max": 0.6761259390000305,
+          "min": 0.20112146900009975,
+          "p50": 0.270237831000031,
+          "p95": 0.62121538660017
+        }
+      },
+      "requests": {
+        "failed": 0,
+        "success_rate": 1.0,
+        "successful": 60,
+        "total": 60
+      },
+      "saturated": true,
+      "saturation_reasons": [
+        "p95_ttfa_above_maximum",
+        "p95_underrun_above_maximum"
+      ],
+      "valid_measurements": 60
+    },
+    {
+      "achieved_request_rate_rps": 1.4629775329982424,
+      "audio_throughput_seconds_per_second": 11.124481160918636,
+      "condition": {
+        "backend": "omni",
+        "concurrency": 8,
+        "profile": "closed"
+      },
+      "condition_duration_seconds": 41.01224977599986,
+      "failure_reasons": {},
+      "invalid_measurements": {
+        "reasons": {},
+        "records": 0
+      },
+      "meets_slos": false,
+      "metrics": {
+        "max_underrun_seconds": {
+          "count": 60,
+          "max": 1.1009170249999443,
+          "min": 0.6963208430001941,
+          "p50": 0.912084206499912,
+          "p95": 1.035074422199636
+        },
+        "ttfa_seconds": {
+          "count": 60,
+          "max": 2.7088179020001917,
+          "min": 0.29800303600040934,
+          "p50": 0.402312438999843,
+          "p95": 2.127027819200293
+        }
+      },
+      "requests": {
+        "failed": 0,
+        "success_rate": 1.0,
+        "successful": 60,
+        "total": 60
+      },
+      "saturated": true,
+      "saturation_reasons": [
+        "p95_ttfa_above_maximum",
+        "p95_underrun_above_maximum"
+      ],
+      "valid_measurements": 60
+    },
+    {
+      "achieved_request_rate_rps": 1.65766980287166,
+      "audio_throughput_seconds_per_second": 12.664597293939483,
+      "condition": {
+        "backend": "omni",
+        "concurrency": 16,
+        "profile": "closed"
+      },
+      "condition_duration_seconds": 36.19538697999997,
+      "failure_reasons": {},
+      "invalid_measurements": {
+        "reasons": {},
+        "records": 0
+      },
+      "meets_slos": false,
+      "metrics": {
+        "max_underrun_seconds": {
+          "count": 60,
+          "max": 1.3911444759996812,
+          "min": 0.8695851679999578,
+          "p50": 1.089450091499884,
+          "p95": 1.272716073299875
+        },
+        "ttfa_seconds": {
+          "count": 60,
+          "max": 6.143447389999892,
+          "min": 0.42249732099980974,
+          "p50": 3.323642630999984,
+          "p95": 4.849325339399865
+        }
+      },
+      "requests": {
+        "failed": 0,
+        "success_rate": 1.0,
+        "successful": 60,
+        "total": 60
+      },
+      "saturated": true,
+      "saturation_reasons": [
+        "p95_ttfa_above_maximum",
+        "p95_underrun_above_maximum"
+      ],
+      "valid_measurements": 60
+    },
+    {
+      "achieved_request_rate_rps": 1.6207968457669883,
+      "audio_throughput_seconds_per_second": 12.60979946006717,
+      "condition": {
+        "backend": "omni",
+        "concurrency": 32,
+        "profile": "closed"
+      },
+      "condition_duration_seconds": 37.018828212000244,
+      "failure_reasons": {},
+      "invalid_measurements": {
+        "reasons": {},
+        "records": 0
+      },
+      "meets_slos": false,
+      "metrics": {
+        "max_underrun_seconds": {
+          "count": 60,
+          "max": 1.3639269390000663,
+          "min": 0.9584107639998365,
+          "p50": 1.111092224499544,
+          "p95": 1.289710710600093
+        },
+        "ttfa_seconds": {
+          "count": 60,
+          "max": 14.337730704999558,
+          "min": 0.5787069050002174,
+          "p50": 11.10868541700006,
+          "p95": 13.660972452400072
+        }
+      },
+      "requests": {
+        "failed": 0,
+        "success_rate": 1.0,
+        "successful": 60,
+        "total": 60
+      },
+      "saturated": true,
+      "saturation_reasons": [
+        "p95_ttfa_above_maximum",
+        "p95_underrun_above_maximum"
+      ],
+      "valid_measurements": 60
+    },
+    {
+      "achieved_request_rate_rps": 0.30398867120733525,
+      "audio_throughput_seconds_per_second": 2.3131511287736832,
+      "condition": {
+        "backend": "omni",
+        "offered_rps": 0.25,
+        "profile": "open"
+      },
+      "condition_duration_seconds": 197.37577641200005,
+      "failure_reasons": {},
+      "invalid_measurements": {
+        "reasons": {},
+        "records": 0
+      },
+      "meets_slos": false,
+      "metrics": {
+        "max_underrun_seconds": {
+          "count": 60,
+          "max": 0.5832453840002927,
+          "min": 0.20288783900014096,
+          "p50": 0.249125896500118,
+          "p95": 0.424644836100788
+        },
+        "ttfa_seconds": {
+          "count": 60,
+          "max": 0.7582066710001527,
+          "min": 0.15355957300016598,
+          "p50": 0.181758571000046,
+          "p95": 0.262912556400443
+        }
+      },
+      "requests": {
+        "failed": 0,
+        "success_rate": 1.0,
+        "successful": 60,
+        "total": 60
+      },
+      "saturated": true,
+      "saturation_reasons": [
+        "p95_underrun_above_maximum"
+      ],
+      "valid_measurements": 60
+    },
+    {
+      "achieved_request_rate_rps": 0.5913564374085091,
+      "audio_throughput_seconds_per_second": 4.518751657050887,
+      "condition": {
+        "backend": "omni",
+        "offered_rps": 0.5,
+        "profile": "open"
+      },
+      "condition_duration_seconds": 101.46165020700028,
+      "failure_reasons": {},
+      "invalid_measurements": {
+        "reasons": {},
+        "records": 0
+      },
+      "meets_slos": false,
+      "metrics": {
+        "max_underrun_seconds": {
+          "count": 60,
+          "max": 0.915212942000835,
+          "min": 0.16234010799962562,
+          "p50": 0.35489026750065,
+          "p95": 0.79686470324973
+        },
+        "ttfa_seconds": {
+          "count": 60,
+          "max": 0.6404224320003777,
+          "min": 0.16357995599992137,
+          "p50": 0.2142771394997,
+          "p95": 0.359592735100023
+        }
+      },
+      "requests": {
+        "failed": 0,
+        "success_rate": 1.0,
+        "successful": 60,
+        "total": 60
+      },
+      "saturated": true,
+      "saturation_reasons": [
+        "p95_ttfa_above_maximum",
+        "p95_underrun_above_maximum"
+      ],
+      "valid_measurements": 60
+    },
+    {
+      "achieved_request_rate_rps": 1.0926947268179412,
+      "audio_throughput_seconds_per_second": 8.467655669687831,
+      "condition": {
+        "backend": "omni",
+        "offered_rps": 1.0,
+        "profile": "open"
+      },
+      "condition_duration_seconds": 54.91012130600029,
+      "failure_reasons": {},
+      "invalid_measurements": {
+        "reasons": {},
+        "records": 0
+      },
+      "meets_slos": false,
+      "metrics": {
+        "max_underrun_seconds": {
+          "count": 60,
+          "max": 1.109630294999988,
+          "min": 0.18416315400008898,
+          "p50": 0.61384009800031,
+          "p95": 0.986879614350528
+        },
+        "ttfa_seconds": {
+          "count": 60,
+          "max": 2.047933271000147,
+          "min": 0.16659286499998416,
+          "p50": 0.291818343999694,
+          "p95": 0.731969422950076
+        }
+      },
+      "requests": {
+        "failed": 0,
+        "success_rate": 1.0,
+        "successful": 60,
+        "total": 60
+      },
+      "saturated": true,
+      "saturation_reasons": [
+        "p95_ttfa_above_maximum",
+        "p95_underrun_above_maximum"
+      ],
+      "valid_measurements": 60
+    },
+    {
+      "achieved_request_rate_rps": 1.623741955256055,
+      "audio_throughput_seconds_per_second": 12.411883505977285,
+      "condition": {
+        "backend": "omni",
+        "offered_rps": 2.0,
+        "profile": "open"
+      },
+      "condition_duration_seconds": 36.95168422899951,
+      "failure_reasons": {},
+      "invalid_measurements": {
+        "reasons": {},
+        "records": 0
+      },
+      "meets_slos": false,
+      "metrics": {
+        "max_underrun_seconds": {
+          "count": 60,
+          "max": 1.3459371480003028,
+          "min": 0.4500290430005407,
+          "p50": 1.04421526150054,
+          "p95": 1.284982332450136
+        },
+        "ttfa_seconds": {
+          "count": 60,
+          "max": 5.891977735000182,
+          "min": 0.25264215400056855,
+          "p50": 1.997180664499865,
+          "p95": 5.450452382250659
+        }
+      },
+      "requests": {
+        "failed": 0,
+        "success_rate": 1.0,
+        "successful": 60,
+        "total": 60
+      },
+      "saturated": true,
+      "saturation_reasons": [
+        "p95_ttfa_above_maximum",
+        "p95_underrun_above_maximum"
+      ],
+      "valid_measurements": 60
+    }
+  ],
+  "safe_capacity": {
+    "current": {
+      "safe_concurrency_per_replica": 1,
+      "safe_open_loop_offered_rps_per_replica": null
+    },
+    "omni": {
+      "safe_concurrency_per_replica": null,
+      "safe_open_loop_offered_rps_per_replica": null
+    }
+  },
+  "schema_version": 1,
+  "slos": {
+    "success_rate_min": 0.99,
+    "ttfa_p95_seconds_max": 0.3,
+    "underrun_p95_seconds_max": 0.1
+  }
+}
